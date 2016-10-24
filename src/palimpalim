@@ -1,7 +1,7 @@
 #!/bin/python
 # -*- coding: utf-8 -*-
 
-
+# simple daemon that digitalize speaker bells/ beeps (char 7)
 # By Chrys, Storm Dragon, and contributers.
 
 import os, sys
