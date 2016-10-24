@@ -22,10 +22,8 @@ class driver():
             self.soundFileCommand = 'play -q -v palimpalimVolume palimpalimSoundFile'
         if self.frequenceCommand == '':
             self.frequenceCommand = 'play -q -v palimpalimVolume -n -c1 synth palimpalimDuration sine palimpalimFrequence'
-        return
     def shutdown(self):
         self.cancel()
-        return
     def playFrequence(self, frequence = 1000, duration = 0.3, adjustVolume = 0):
         if interrupt:
             self.cancel()
