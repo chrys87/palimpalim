@@ -1,0 +1,28 @@
+#!/bin/python
+# -*- coding: utf-8 -*-
+
+
+# By Chrys, Storm Dragon, and contributers.
+
+import os, sys
+import __main__
+
+if not os.path.dirname(os.path.realpath(__main__.__file__)) in sys.path:
+    sys.path.append(os.path.dirname(os.path.realpath(__main__.__file__)))
+
+import palimpalim
+from daemonize import Daemonize
+
+pidFile = "/run/palimpalim.pid"
+
+def main():
+    app = palimpalim.palimpalim()
+    app.proceed()
+    del app
+
+if __name__ == "__main__":
+    # for debug in foreground
+    #daemon = Daemonize(app="palimpalim-daemon", pid=pidFile, action=main, foreground=True,chdir=os.path.dirname(os.path.realpath(__main__.__file__)))
+    daemon = Daemonize(app="palimpalim-daemon", pid=pidFile, action=main, chdir=os.path.dirname(os.path.realpath(__main__.__file__)))
+    daemon.start()
+
