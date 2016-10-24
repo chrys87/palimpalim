@@ -19,26 +19,26 @@ class driver():
         #self.soundFileCommand = self.env['runtime']['settingsManager'].getSetting('sound', 'genericPlayFileCommand')
         #self.frequenceCommand = self.env['runtime']['settingsManager'].getSetting('sound', 'genericFrequencyCommand')
         if self.soundFileCommand == '':
-            self.soundFileCommand = 'play -q -v fenrirVolume fenrirSoundFile'
+            self.soundFileCommand = 'play -q -v palimpalimVolume palimpalimSoundFile'
         if self.frequenceCommand == '':
-            self.frequenceCommand = '=play -q -v fenrirVolume -n -c1 synth fenrirDuration sine fenrirFrequence'
+            self.frequenceCommand = 'play -q -v palimpalimVolume -n -c1 synth palimpalimDuration sine palimpalimFrequence'
         return
     def shutdown(self):
         self.cancel()
         return
-    def playFrequence(self, frequence, duration, adjustVolume):
+    def playFrequence(self, frequence = 1000, duration = 0.3, adjustVolume = 0):
         if interrupt:
             self.cancel()
-        popenFrequenceCommand = self.frequenceCommand.replace('fenrirVolume', str(self.volume + adjustVolume ))
-        popenFrequenceCommand = popenFrequenceCommand.replace('fenrirFreqDuration', str(duration))
-        popenFrequenceCommand = popenFrequenceCommand.replace('fenrirFrequence', str(frequence))        
+        popenFrequenceCommand = self.frequenceCommand.replace('palimpalimVolume', str(self.volume + adjustVolume ))
+        popenFrequenceCommand = popenFrequenceCommand.replace('palimpalimFreqDuration', str(duration))
+        popenFrequenceCommand = popenFrequenceCommand.replace('palimpalimFrequence', str(frequence))        
         self.proc = subprocess.Popen(popenFrequenceCommand, shell=True)
         self.soundType = 'frequence'
     def playSoundFile(self, filePath, interrupt = True):
         if interrupt:
             self.cancel()
-        popenSoundFileCommand = self.soundFileCommand.replace('fenrirVolume', str(self.volume ))
-        popenSoundFileCommand = popenSoundFileCommand.replace('fenrirSoundFile', filePath)
+        popenSoundFileCommand = self.soundFileCommand.replace('palimpalimVolume', str(self.volume ))
+        popenSoundFileCommand = popenSoundFileCommand.replace('palimpalimSoundFile', filePath)
         self.proc = subprocess.Popen(popenSoundFileCommand, shell=True)
         self.soundType = 'file'
     def cancel(self):
