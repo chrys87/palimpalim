@@ -1,0 +1,15 @@
+[Unit]
+Description=Palimpalim beep daemon
+Wants=systemd-udev-settle.service
+After=systemd-udev-settle.service sound.target
+[Service]
+Type=forking
+PIDFile=/var/run/palimpalim.pid
+ExecStart=/usr/bin/palimpalim
+ExecReload=/usr/bin/kill -HUP $MAINPID
+Restart=always
+#Group=palimpalim
+#User=palimpalim
+
+[Install]
+WantedBy=sound.target
