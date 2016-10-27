@@ -6,17 +6,18 @@
 import evdev
 from evdev import InputDevice
 from select import select
-import time
+import time, os
 from configparser import ConfigParser
 #from . import driver
 
 class palimpalim():
-    __init__():
+    def __init__(self):
         self._config = None
         self.devices = None
         self.debug = True
         self.announceLed = False
         self.announeBell = True
+        self.loadDevices()
         self.loadSettings()
         if self.announceLed:
             self.currNumlock = self.getLedState()
@@ -76,21 +77,22 @@ class palimpalim():
                             if self.announceLed:
                                 if self.currNumlock != self.getLedState():
                                     if self.debug:
-                                        print('numlock",self.getLedState())
+                                        print('numlock',self.getLedState())
                                     self.currNumlock = self.getLedState()
                                 if self.currShift != self.getLedState(1):
                                     if self.debug:
-                                        print('shift",self.getLedState(1))
+                                        print('shift',self.getLedState(1))
                                     self.currShift = self.getLedState(1) 
                                 if self.currScrolllock != self.getLedState(2):
                                     if self.debug:
-                                        print('scrolllock",self.getLedState(2))
+                                        print('scrolllock',self.getLedState(2))
                                     self.currScrolllock = self.getLedState(2)
                         if self.announeBell:
                             if event.type == 12: #EV_SND
                                 if self.debug:
                                     print('bell')
                         if self.debug:
-                            print('Devicename:'+ self.devices[fd].name + '  Devicepath:' + self.devices[fd].fn + ' | EVENTINFO Type: ' + str(event.type) + '  Code: ' + str(event.code) + '  Value: ' + str(event.value))
+                            if event.type == 12 or event.type == 17:
+                                print('Devicename:'+ self.devices[fd].name + '  Devicepath:' + self.devices[fd].fn + ' | EVENTINFO Type: ' + str(event.type) + '  Code: ' + str(event.code) + '  Value: ' + str(event.value))
 
 
